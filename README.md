@@ -1,6 +1,6 @@
 # AI-Powered Multi-Agent Research Article Generator
 
-A Django-based web application that uses CrewAI and multiple AI agents to research a topic, plan the article structure, and generate a complete research article through an easy-to-use web interface.
+A Django-based AI-powered research article generator using CrewAI and Gemini API. It uses Research, Planning, and Writing agents to generate articles, display processing status, support editing and saving, provide research history, and allow PDF downloading.
 
 ## Features
 
