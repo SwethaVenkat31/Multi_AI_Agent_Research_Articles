@@ -1,0 +1,695 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research Studio</title>
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+
+<div class="app-shell">
+
+    <!-- Top Header -->
+    <header class="top-header">
+
+        <div class="brand">
+            <div class="brand-icon">✦</div>
+            <span>Research Studio</span>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="header-search">
+            <span>⌕</span>
+
+            <input
+                type="text"
+                id="researchSearch"
+                placeholder="Search research, articles, or topics..."
+                autocomplete="off"
+            >
+        </div>
+
+        <div class="header-actions">
+
+            <button
+                class="icon-button"
+                title="Notifications"
+                type="button">
+                ♧
+            </button>
+
+            <button
+                class="profile-button"
+                type="button">
+                <span class="profile-avatar">S</span>
+                <span>Swetha</span>
+                <span>⌄</span>
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <div class="layout">
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+
+            <a
+                href="{% url 'new_research' %}"
+                class="new-research-button">
+                <span>＋</span>
+                New Research
+            </a>
+
+
+            <nav class="sidebar-nav">
+
+                <!-- Home -->
+                <a
+                    href="{% url 'dashboard' %}"
+                    class="nav-item active">
+                    <span class="nav-icon">⌂</span>
+                    Home
+                </a>
+
+
+                <div class="nav-section-title">
+                    Projects
+                </div>
+
+
+                <!-- All Research -->
+                <a
+                    href="{% url 'all_research' %}"
+                    class="nav-item">
+                    <span class="nav-icon">□</span>
+                    All Research
+                </a>
+
+
+                <!-- Active -->
+                <a
+                    href="#active-research"
+                    class="nav-item">
+                    <span class="nav-icon">◌</span>
+                    Active
+                </a>
+
+
+                <!-- Completed -->
+                <a
+                    href="#recent-projects"
+                    class="nav-item">
+                    <span class="nav-icon">✓</span>
+                    Completed
+                </a>
+
+
+                <!-- Drafts -->
+                <a
+                    href="#recent-projects"
+                    class="nav-item">
+                    <span class="nav-icon">◇</span>
+                    Drafts
+                </a>
+
+
+                <div class="sidebar-divider"></div>
+
+
+                <!-- Articles - FIXED -->
+                <a
+                    href="{% url 'articles' %}"
+                    class="nav-item">
+                    <span class="nav-icon">▧</span>
+                    Articles
+                </a>
+
+
+                <!-- Settings -->
+                <a
+                    href="#"
+                    class="nav-item">
+                    <span class="nav-icon">⚙</span>
+                    Settings
+                </a>
+
+            </nav>
+
+
+            <!-- Upgrade / Information Card -->
+            <div class="upgrade-card">
+
+                <div class="upgrade-icon">✦</div>
+
+                <h3>Research smarter.</h3>
+
+                <p>
+                    Turn your ideas into structured, high-quality articles
+                    with AI-powered research.
+                </p>
+
+                <button
+                    type="button"
+                    onclick="window.location.href='{% url 'new_research' %}'">
+                    Explore Features
+                </button>
+
+            </div>
+
+        </aside>
+
+
+
+        <!-- Main Content -->
+        <main class="main-content">
+
+
+            <!-- Hero Section -->
+            <section class="hero-card">
+
+                <div class="hero-content">
+
+                    <span class="eyebrow">
+                        AI RESEARCH WORKSPACE
+                    </span>
+
+                    <h1>
+                        Turn your ideas into
+                        <span>publication-ready articles</span>
+                    </h1>
+
+                    <p>
+                        Research, plan, and write high-quality content
+                        with the help of intelligent AI agents.
+                    </p>
+
+                    <a
+                        href="{% url 'new_research' %}"
+                        class="primary-button">
+                        <span>＋</span>
+                        Start New Research
+                    </a>
+
+                </div>
+
+
+                <div class="hero-visual">
+
+                    <div class="document-illustration">
+                        <div class="document-line large"></div>
+                        <div class="document-line"></div>
+                        <div class="document-line"></div>
+                        <div class="document-line short"></div>
+                    </div>
+
+                    <div class="agent-bubble research-bubble">
+                        ✦ Research
+                    </div>
+
+                    <div class="agent-bubble plan-bubble">
+                        ☆ Plan
+                    </div>
+
+                    <div class="agent-bubble write-bubble">
+                        ✎ Write
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- Active Research -->
+            <section
+                class="content-section"
+                id="active-research">
+
+                <div class="section-heading">
+
+                    <div>
+                        <h2>Active Research</h2>
+
+                        <p>
+                            Continue working on your ongoing projects
+                        </p>
+                    </div>
+
+                    <a href="#active-research">
+                        View all →
+                    </a>
+
+                </div>
+
+
+                {% if researches %}
+
+                    {% for research in researches %}
+
+                        {% if research.status == "in_progress" %}
+
+                            <div class="active-research-card">
+
+                                <div class="research-symbol">
+                                    ✦
+                                </div>
+
+
+                                <div class="active-research-info">
+
+                                    <h3>
+                                        {{ research.topic }}
+                                    </h3>
+
+                                    <p>
+                                        Your AI agents are currently
+                                        processing this research project.
+                                    </p>
+
+
+                                    <div class="research-meta">
+
+                                        <span class="status-badge progress">
+                                            ● In Progress
+                                        </span>
+
+                                        <span>
+                                            ◷ Started recently
+                                        </span>
+
+                                        <span>
+                                            ✦ 3 AI Agents
+                                        </span>
+
+                                    </div>
+
+
+                                    <div class="progress-track">
+                                        <div class="progress-fill"></div>
+                                    </div>
+
+
+                                    <div class="progress-labels">
+                                        <span>Researching</span>
+                                        <span>Planning</span>
+                                        <span>Writing</span>
+                                    </div>
+
+                                </div>
+
+
+                                <a
+                                    href="{% url 'processing' research_id=research.id %}"
+                                    class="outline-button">
+                                    View Details →
+                                </a>
+
+                            </div>
+
+                        {% endif %}
+
+                    {% endfor %}
+
+                {% else %}
+
+                    <div class="empty-card">
+
+                        <div class="empty-icon">
+                            ✦
+                        </div>
+
+                        <h3>
+                            No active research
+                        </h3>
+
+                        <p>
+                            Start a new research project to see its
+                            progress here.
+                        </p>
+
+                    </div>
+
+                {% endif %}
+
+            </section>
+
+
+
+            <!-- Recent Projects -->
+            <section
+                class="content-section"
+                id="recent-projects">
+
+                <div class="section-heading">
+
+                    <div>
+                        <h2>Recent Projects</h2>
+
+                        <p>
+                            Your latest research activity
+                        </p>
+                    </div>
+
+
+                    <a href="{% url 'all_research' %}">
+                        View all →
+                    </a>
+
+                </div>
+
+
+                <div class="project-grid">
+
+                    {% for research in researches|slice:":3" %}
+
+                        <div class="project-card">
+
+                            <div class="project-card-top">
+
+                                <div class="project-icon">
+                                    ✦
+                                </div>
+
+                                <button
+                                    type="button"
+                                    class="more-button"
+                                    title="More options">
+                                    ⋮
+                                </button>
+
+                            </div>
+
+
+                            <h3>
+                                {{ research.topic }}
+                            </h3>
+
+
+                            <p>
+                                {{ research.instructions|default:"AI-generated research article project."|truncatechars:95 }}
+                            </p>
+
+
+                            {% if research.status == "completed" %}
+
+                                <span class="status-badge completed">
+                                    ● Completed
+                                </span>
+
+                            {% elif research.status == "failed" %}
+
+                                <span class="status-badge failed">
+                                    ● Failed
+                                </span>
+
+                            {% else %}
+
+                                <span class="status-badge progress">
+                                    ● In Progress
+                                </span>
+
+                            {% endif %}
+
+
+                            <div class="project-footer">
+
+                                <span>
+                                    {{ research.created_at|date:"M d, Y" }}
+                                </span>
+
+
+                                {% if research.status == "completed" %}
+
+                                    <a
+                                        href="{% url 'result' research_id=research.id %}">
+                                        Open →
+                                    </a>
+
+                                {% elif research.status == "in_progress" %}
+
+                                    <a
+                                        href="{% url 'processing' research_id=research.id %}">
+                                        Continue →
+                                    </a>
+
+                                {% else %}
+
+                                    <span>
+                                        Unavailable
+                                    </span>
+
+                                {% endif %}
+
+                            </div>
+
+                        </div>
+
+
+                    {% empty %}
+
+                        <div class="empty-card full-width">
+
+                            <div class="empty-icon">
+                                □
+                            </div>
+
+                            <h3>
+                                Your research workspace is empty
+                            </h3>
+
+                            <p>
+                                Create your first AI-powered research article
+                                to get started.
+                            </p>
+
+                            <br>
+
+                            <a
+                                href="{% url 'new_research' %}"
+                                class="primary-button">
+                                ＋ Create Your First Research
+                            </a>
+
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+            </section>
+
+        </main>
+
+
+
+        <!-- Right Panel -->
+        <aside class="right-panel">
+
+
+            <!-- Quick Actions -->
+            <section class="side-card">
+
+                <h2>Quick Actions</h2>
+
+
+                <!-- New Research -->
+                <a
+                    href="{% url 'new_research' %}"
+                    class="quick-action">
+
+                    <span class="quick-icon purple">
+                        ＋
+                    </span>
+
+                    <div>
+                        <strong>New Research</strong>
+
+                        <small>
+                            Start a topic and create an article
+                        </small>
+                    </div>
+
+                </a>
+
+
+                <!-- Drafts -->
+                <a
+                    href="#recent-projects"
+                    class="quick-action">
+
+                    <span class="quick-icon blue">
+                        ◇
+                    </span>
+
+                    <div>
+                        <strong>View Drafts</strong>
+
+                        <small>
+                            Continue your unfinished work
+                        </small>
+                    </div>
+
+                </a>
+
+
+                <!-- Browse Articles - FIXED -->
+                <a
+                    href="{% url 'articles' %}"
+                    class="quick-action">
+
+                    <span class="quick-icon green">
+                        ▥
+                    </span>
+
+                    <div>
+                        <strong>Browse Articles</strong>
+
+                        <small>
+                            View your completed research
+                        </small>
+                    </div>
+
+                </a>
+
+            </section>
+
+
+
+            <!-- Recent Activity -->
+            <section class="side-card">
+
+                <h2>Recent Activity</h2>
+
+
+                <div class="activity-item">
+
+                    <span class="activity-dot completed-dot">
+                        ✓
+                    </span>
+
+                    <div>
+
+                        <strong>
+                            Research workspace ready
+                        </strong>
+
+                        <p>
+                            Start your first project
+                        </p>
+
+                        <small>
+                            Just now
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <div class="activity-item">
+
+                    <span class="activity-dot progress-dot">
+                        ◌
+                    </span>
+
+                    <div>
+
+                        <strong>
+                            AI agents available
+                        </strong>
+
+                        <p>
+                            Research, planning and writing
+                        </p>
+
+                        <small>
+                            Ready to use
+                        </small>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- Inspiration Card -->
+            <section class="inspiration-card">
+
+                <div class="inspiration-icon">
+                    ✦
+                </div>
+
+                <h3>
+                    Better research.<br>
+                    Greater possibilities.
+                </h3>
+
+                <p>
+                    Transform ideas into meaningful insights with AI.
+                </p>
+
+            </section>
+
+        </aside>
+
+    </div>
+
+</div>
+
+
+
+<!-- Search Functionality -->
+<script>
+
+    const searchInput = document.getElementById("researchSearch");
+
+    if (searchInput) {
+
+        searchInput.addEventListener("input", function () {
+
+            const searchTerm = this.value.toLowerCase().trim();
+
+            const projectCards =
+                document.querySelectorAll(".project-card");
+
+            const activeCards =
+                document.querySelectorAll(".active-research-card");
+
+
+            [...projectCards, ...activeCards].forEach(function (card) {
+
+                const cardText =
+                    card.textContent.toLowerCase();
+
+
+                if (cardText.includes(searchTerm)) {
+
+                    card.style.display = "";
+
+                } else {
+
+                    card.style.display = "none";
+
+                }
+
+            });
+
+        });
+
+    }
+
+</script>
+
+
+</body>
+</html>

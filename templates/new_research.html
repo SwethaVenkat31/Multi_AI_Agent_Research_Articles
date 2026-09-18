@@ -1,0 +1,196 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Research · Research Studio</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+<div class="app-shell">
+
+    <header class="top-header">
+        <div class="brand">
+            <div class="brand-icon">✦</div>
+            <span>Research Studio</span>
+        </div>
+
+        <div class="header-search">
+            <span>⌕</span>
+            <input type="text" placeholder="Search research, articles, or topics...">
+        </div>
+
+        <div class="header-actions">
+            <button class="icon-button">♧</button>
+            <button class="profile-button">
+                <span class="profile-avatar">S</span>
+                <span>Swetha</span>
+                <span>⌄</span>
+            </button>
+        </div>
+    </header>
+
+    <div class="layout">
+
+        <aside class="sidebar">
+            <a href="{% url 'new_research' %}" class="new-research-button">
+                <span>＋</span>
+                New Research
+            </a>
+
+            <nav class="sidebar-nav">
+                <a href="{% url 'dashboard' %}" class="nav-item">
+                    <span class="nav-icon">⌂</span>
+                    Home
+                </a>
+
+                <div class="nav-section-title">Projects</div>
+
+                <a href="#" class="nav-item">
+                    <span class="nav-icon">□</span>
+                    All Research
+                </a>
+
+                <a href="#" class="nav-item">
+                    <span class="nav-icon">◌</span>
+                    Active
+                </a>
+
+                <a href="#" class="nav-item">
+                    <span class="nav-icon">✓</span>
+                    Completed
+                </a>
+
+                <a href="#" class="nav-item">
+                    <span class="nav-icon">▤</span>
+                    Drafts
+                </a>
+
+                <div class="sidebar-divider"></div>
+
+                <a href="#" class="nav-item">
+                    <span class="nav-icon">▧</span>
+                    Articles
+                </a>
+
+                <a href="#" class="nav-item">
+                    <span class="nav-icon">⚙</span>
+                    Settings
+                </a>
+            </nav>
+        </aside>
+
+        <main class="main-content research-form-page">
+
+            <div class="page-back">
+                <a href="{% url 'dashboard' %}">← Back to workspace</a>
+            </div>
+
+            <section class="form-intro">
+                <span class="eyebrow">NEW RESEARCH PROJECT</span>
+
+                <h1>What would you like to research?</h1>
+
+                <p>
+                    Give your topic to our AI research team. They will research,
+                    plan, and write a structured article for you.
+                </p>
+            </section>
+
+            <section class="research-form-card">
+
+                <form method="post">
+                    {% csrf_token %}
+
+                    <div class="form-group">
+                        <label for="topic">
+                            Research Topic
+                            <span>*</span>
+                        </label>
+
+                        <input
+                            type="text"
+                            id="topic"
+                            name="topic"
+                            placeholder="e.g. The impact of artificial intelligence on healthcare"
+                            required
+                        >
+
+                        <small>
+                            Enter the main subject you want the AI agents to explore.
+                        </small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="instructions">
+                            Additional Instructions
+                        </label>
+
+                        <textarea
+                            id="instructions"
+                            name="instructions"
+                            rows="5"
+                            placeholder="Add specific points, target audience, sources, or requirements..."
+                        ></textarea>
+
+                        <small>
+                            Optional instructions help the agents customize the article.
+                        </small>
+                    </div>
+
+                    <div class="form-row">
+
+                        <div class="form-group">
+                            <label for="article_length">Article Length</label>
+
+                            <select id="article_length" name="article_length">
+                                <option value="short">Short · 500–800 words</option>
+                                <option value="medium" selected>Medium · 800–1200 words</option>
+                                <option value="long">Long · 1200–1800 words</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="tone">Writing Tone</label>
+
+                            <select id="tone" name="tone">
+                                <option value="professional" selected>Professional</option>
+                                <option value="casual">Casual</option>
+                                <option value="academic">Academic</option>
+                                <option value="friendly">Friendly</option>
+                            </select>
+                        </div>
+
+                    </div>
+
+                    <div class="form-footer">
+                        <a href="{% url 'dashboard' %}" class="cancel-button">
+                            Cancel
+                        </a>
+
+                        <button type="submit" class="primary-button">
+                            <span>✦</span>
+                            Start AI Research
+                        </button>
+                    </div>
+
+                </form>
+
+            </section>
+
+            <div class="workflow-hint">
+                <span>✦</span>
+                Your article will be created through three AI stages:
+                <strong>Research → Planning → Writing</strong>
+            </div>
+
+        </main>
+
+    </div>
+</div>
+
+</body>
+</html>

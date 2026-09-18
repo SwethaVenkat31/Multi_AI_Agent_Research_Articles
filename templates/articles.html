@@ -1,0 +1,536 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Articles | Research Studio</title>
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <style>
+        .articles-content {
+            padding: 34px;
+            width: 100%;
+        }
+
+        .articles-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            gap: 20px;
+        }
+
+        .articles-header h1 {
+            margin: 0;
+            font-size: 30px;
+            color: #172033;
+        }
+
+        .articles-header p {
+            margin-top: 8px;
+            color: #718096;
+            font-size: 15px;
+        }
+
+        .new-article-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            background: #4f46e5;
+            color: white;
+            padding: 12px 18px;
+            border-radius: 10px;
+            font-weight: 600;
+        }
+
+        .new-article-button:hover {
+            background: #4338ca;
+        }
+
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+            gap: 22px;
+        }
+
+        .article-card {
+            background: #ffffff;
+            border: 1px solid #e8edf5;
+            border-radius: 16px;
+            padding: 22px;
+            box-shadow: 0 5px 18px rgba(30, 41, 59, 0.05);
+            transition: 0.2s ease;
+        }
+
+        .article-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(30, 41, 59, 0.09);
+        }
+
+        .article-card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+        }
+
+        .article-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: #eef2ff;
+            color: #4f46e5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 21px;
+        }
+
+        .completed-label {
+            background: #dcfce7;
+            color: #15803d;
+            border-radius: 20px;
+            padding: 5px 10px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .article-card h2 {
+            margin: 0 0 10px;
+            color: #172033;
+            font-size: 19px;
+            line-height: 1.4;
+        }
+
+        .article-topic {
+            color: #64748b;
+            font-size: 13px;
+            margin-bottom: 14px;
+        }
+
+        .article-preview {
+            color: #526174;
+            font-size: 14px;
+            line-height: 1.7;
+            min-height: 72px;
+            margin-bottom: 20px;
+        }
+
+        .article-footer {
+            border-top: 1px solid #edf1f7;
+            padding-top: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .article-date {
+            color: #94a3b8;
+            font-size: 12px;
+        }
+
+        .view-article-link {
+            color: #4f46e5;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .view-article-link:hover {
+            color: #3730a3;
+        }
+
+        .empty-articles {
+            background: white;
+            border: 1px dashed #cbd5e1;
+            border-radius: 16px;
+            padding: 75px 25px;
+            text-align: center;
+            color: #64748b;
+        }
+
+        .empty-articles-icon {
+            font-size: 42px;
+            margin-bottom: 15px;
+        }
+
+        .empty-articles h2 {
+            margin-bottom: 10px;
+            color: #334155;
+        }
+
+        @media (max-width: 800px) {
+            .articles-content {
+                padding: 22px;
+            }
+
+            .articles-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="app-shell">
+
+    <!-- Top Header -->
+    <header class="top-header">
+        <div class="brand">
+            <div class="brand-icon">✦</div>
+            <span>Research Studio</span>
+        </div>
+
+        <div class="header-search">
+            <span>⌕</span>
+            <input
+                type="text"
+                id="articleSearch"
+                placeholder="Search articles..."
+                autocomplete="off"
+            >
+        </div>
+
+        <div class="header-actions">
+            <button
+                class="icon-button"
+                title="Notifications"
+                type="button">
+                ♧
+            </button>
+
+            <button
+                class="profile-button"
+                type="button">
+                <span class="profile-avatar">S</span>
+                <span>Swetha</span>
+                <span>⌄</span>
+            </button>
+        </div>
+    </header>
+
+    <div class="layout">
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+
+            <a
+                href="{% url 'new_research' %}"
+                class="new-research-button">
+                <span>＋</span>
+                New Research
+            </a>
+
+            <nav class="sidebar-nav">
+
+                <a
+                    href="{% url 'dashboard' %}"
+                    class="nav-item">
+                    <span class="nav-icon">⌂</span>
+                    Home
+                </a>
+
+                <div class="nav-section-title">Projects</div>
+
+                <a
+                    href="{% url 'all_research' %}"
+                    class="nav-item">
+                    <span class="nav-icon">□</span>
+                    All Research
+                </a>
+
+                <a
+                    href="#"
+                    class="nav-item">
+                    <span class="nav-icon">◌</span>
+                    Active
+                </a>
+
+                <a
+                    href="{% url 'all_research' %}"
+                    class="nav-item">
+                    <span class="nav-icon">✓</span>
+                    Completed
+                </a>
+
+                <a
+                    href="#"
+                    class="nav-item">
+                    <span class="nav-icon">◇</span>
+                    Drafts
+                </a>
+
+                <div class="sidebar-divider"></div>
+
+                <a
+                    href="{% url 'articles' %}"
+                    class="nav-item active">
+                    <span class="nav-icon">▧</span>
+                    Articles
+                </a>
+
+                <a
+                    href="#"
+                    class="nav-item">
+                    <span class="nav-icon">⚙</span>
+                    Settings
+                </a>
+
+            </nav>
+
+            <div class="upgrade-card">
+                <div class="upgrade-icon">✦</div>
+
+                <h3>Research smarter.</h3>
+
+                <p>
+                    Turn your ideas into structured, high-quality articles
+                    with AI-powered research.
+                </p>
+
+                <button
+                    type="button"
+                    onclick="window.location.href='{% url 'new_research' %}'">
+                    Explore Features
+                </button>
+            </div>
+
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+
+            <section class="articles-content">
+
+                <div class="articles-header">
+                    <div>
+                        <h1>Articles</h1>
+                        <p>
+                            Browse and manage your completed research articles.
+                        </p>
+                    </div>
+
+                    <a
+                        href="{% url 'new_research' %}"
+                        class="new-article-button">
+                        ＋ New Research
+                    </a>
+                </div>
+
+                {% if researches %}
+
+                    <div class="articles-grid">
+
+                        {% for research in researches %}
+
+                            <div class="article-card">
+
+                                <div class="article-card-top">
+                                    <div class="article-icon">📄</div>
+
+                                    <span class="completed-label">
+                                        Completed
+                                    </span>
+                                </div>
+
+                                <h2>
+                                    {{ research.article.title }}
+                                </h2>
+
+                                <div class="article-topic">
+                                    Topic: {{ research.topic }}
+                                </div>
+
+                                <div class="article-preview">
+                                    {{ research.article.content|truncatewords:28 }}
+                                </div>
+
+                                <div class="article-footer">
+                                    <span class="article-date">
+                                        {{ research.created_at|date:"M d, Y" }}
+                                    </span>
+
+                                    <a
+                                        href="{% url 'result' research_id=research.id %}"
+                                        class="view-article-link">
+                                        View Article →
+                                    </a>
+                                </div>
+
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+
+                {% else %}
+
+                    <div class="empty-articles">
+                        <div class="empty-articles-icon">📄</div>
+
+                        <h2>No articles yet</h2>
+
+                        <p>
+                            Generate your first research article to see it here.
+                        </p>
+                    </div>
+
+                {% endif %}
+
+            </section>
+
+        </main>
+
+        <!-- Right Panel -->
+        <aside class="right-panel">
+
+            <section class="side-card">
+
+                <h2>Quick Actions</h2>
+
+                <a
+                    href="{% url 'new_research' %}"
+                    class="quick-action">
+
+                    <span class="quick-icon purple">＋</span>
+
+                    <div>
+                        <strong>New Research</strong>
+                        <small>
+                            Start a topic and create an article
+                        </small>
+                    </div>
+
+                </a>
+
+                <a
+                    href="{% url 'all_research' %}"
+                    class="quick-action">
+
+                    <span class="quick-icon green">▥</span>
+
+                    <div>
+                        <strong>All Research</strong>
+                        <small>
+                            View your research history
+                        </small>
+                    </div>
+
+                </a>
+
+                <a
+                    href="{% url 'articles' %}"
+                    class="quick-action">
+
+                    <span class="quick-icon blue">▧</span>
+
+                    <div>
+                        <strong>Browse Articles</strong>
+                        <small>
+                            View completed articles
+                        </small>
+                    </div>
+
+                </a>
+
+            </section>
+
+            <section class="side-card">
+
+                <h2>Article Library</h2>
+
+                <div class="activity-item">
+                    <span class="activity-dot completed-dot">
+                        ✓
+                    </span>
+
+                    <div>
+                        <strong>
+                            Completed articles
+                        </strong>
+
+                        <p>
+                            Your generated content
+                        </p>
+
+                        <small>
+                            Available to view
+                        </small>
+                    </div>
+                </div>
+
+                <div class="activity-item">
+                    <span class="activity-dot progress-dot">
+                        ◌
+                    </span>
+
+                    <div>
+                        <strong>
+                            AI-powered writing
+                        </strong>
+
+                        <p>
+                            Research, planning and writing
+                        </p>
+
+                        <small>
+                            Three-agent workflow
+                        </small>
+                    </div>
+                </div>
+
+            </section>
+
+            <section class="inspiration-card">
+
+                <div class="inspiration-icon">✦</div>
+
+                <h3>
+                    Better research.<br>
+                    Greater possibilities.
+                </h3>
+
+                <p>
+                    Transform ideas into meaningful insights with AI.
+                </p>
+
+            </section>
+
+        </aside>
+
+    </div>
+
+</div>
+
+<!-- Article Search -->
+<script>
+    const articleSearch = document.getElementById("articleSearch");
+
+    if (articleSearch) {
+        articleSearch.addEventListener("input", function () {
+            const searchTerm = this.value.toLowerCase().trim();
+            const articleCards = document.querySelectorAll(".article-card");
+
+            articleCards.forEach(function (card) {
+                const cardText = card.textContent.toLowerCase();
+
+                if (cardText.includes(searchTerm)) {
+                    card.style.display = "";
+                } else {
+                    card.style.display = "none";
+                }
+            });
+        });
+    }
+</script>
+
+</body>
+</html>

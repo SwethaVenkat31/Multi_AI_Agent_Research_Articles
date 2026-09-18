@@ -1,0 +1,16 @@
+# ============================================================
+# Requirements for: AI-Powered Multi-Agent Article Generator
+# Python: 3.10+
+# ============================================================
+
+# Core multi-agent orchestration framework
+crewai==0.130.0
+
+# Anthropic Python SDK (used internally by CrewAI via LiteLLM)
+anthropic>=0.50.0,<1.0.0
+
+# LiteLLM: provider-agnostic LLM routing (bundled via crewai but pinned for stability)
+litellm>=1.57.0,<2.0.0
+
+# Environment variable management (optional but recommended)
+python-dotenv>=1.0.0,<2.0.0
