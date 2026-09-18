@@ -15,7 +15,7 @@ A Django-based web application that uses CrewAI and multiple AI agents to resear
   * Research Agent
   * Planning Agent
   * Writing Agent
-* Real-time processing status
+* Processing status display
 * Generated article result page
 * Article title and content display
 * Word count and generated date
@@ -395,6 +395,10 @@ Check:
 * Terminal error messages
 * Correct Python environment
 
+## Application Screenshots
+
+Screenshots of the application interface can be found in the `screenshots/` directory.
+
 ## Future Improvements
 
 Possible future enhancements include:
@@ -430,7 +434,7 @@ The application currently supports the complete basic workflow:
 **Swetha S V**
 
 GitHub:
-https://github.com/SwethaVenkat31
+[SwethaVenkat31](https://github.com/SwethaVenkat31)
 
 Repository:
-https://github.com/SwethaVenkat31/Multi_AI_Agent_Research_Articles
+[AI-Powered Multi-Agent Research Article Generator](https://github.com/SwethaVenkat31/Multi_AI_Agent_Research_Articles)
